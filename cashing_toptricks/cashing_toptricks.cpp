@@ -123,6 +123,7 @@ void cashing::rank(){
 
 void cashing::search(){
 	//assuming south starts
+	int ma=INT_MIN;
 	queue<nd> q;
 	nd temp;
 	temp.p=1;
@@ -147,6 +148,7 @@ void cashing::search(){
 		// cout<<"ll"<<endl;
 		temp=q.front();
 		q.pop();
+		ma=max(ma,temp.t);
 		if(temp.r==0){
 			cout<<temp.t<<endl;
 			continue;
@@ -246,6 +248,7 @@ void cashing::search(){
 			}
 		}
 	}
+	cout<<"max top tricks: "<<ma<<endl;
 }
 
 int main(){
