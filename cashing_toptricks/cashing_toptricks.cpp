@@ -9,6 +9,7 @@ typedef struct node{
 	bool p;
 	int t;
 	int r;
+	string play;
 	vector<pair<int,int> > north[4];
 	vector<pair<int,int> > south[4];
 }nd;
@@ -129,6 +130,7 @@ void cashing::search(){
 	temp.p=1;
 	temp.t=0;
 	temp.r=0;
+	temp.play="";
 	for(int i=0;i<4;i++){
 		temp.north[i]=north[i];
 		temp.south[i]=south[i];
@@ -144,11 +146,16 @@ void cashing::search(){
 		}
 	}
 	q.push(temp);
+	string line_of_play="";
 	while(!q.empty()){
 		// cout<<"ll"<<endl;
 		temp=q.front();
 		q.pop();
-		ma=max(ma,temp.t);
+		// ma=max(ma,temp.t);
+		if(ma<=temp.t){
+			ma=temp.t;
+			line_of_play=temp.play;
+		}
 		if(temp.r==0){
 			cout<<temp.t<<endl;
 			continue;
@@ -164,6 +171,7 @@ void cashing::search(){
 									temp1.p=0;
 									temp1.t=temp.t+1;
 									temp1.r=temp.r-(south[i][j].second==1)-(north[i][k].second==1);
+									temp1.play=temp.play+"South plays "+to_string(south[i][j].first)+" "+to_string(i+1)+"\n North plays "+to_string(north[i][k].first)+" "+to_string(i+1)+"\n";
 									temp1.north[i].erase(temp1.north[i].begin()+k);
 									temp1.south[i].erase(temp1.south[i].begin()+j);
 									q.push(temp1);
@@ -178,6 +186,7 @@ void cashing::search(){
 								temp1.p=temp.south[i][j].first>north[i][k].first;
 								temp1.t=temp.t+1;
 								temp1.r=temp.r-(south[i][j].second==1)-(north[i][k].second==1);
+								temp1.play=temp.play+"South plays "+to_string(south[i][j].first)+" "+to_string(i+1)+"\n North plays "+to_string(north[i][k].first)+" "+to_string(i+1)+"\n";
 								temp1.north[i].erase(temp1.north[i].begin()+k);
 								temp1.south[i].erase(temp1.south[i].begin()+j);
 								q.push(temp1);
@@ -190,6 +199,7 @@ void cashing::search(){
 									temp1.p=1;
 									temp1.t=temp.t+1;
 									temp1.r=temp.r-(south[i][j].second==1)-(north[a][b].second==1);
+									temp1.play=temp.play+"South plays "+to_string(south[i][j].first)+" "+to_string(i+1)+"\n North plays "+to_string(north[a][b].first)+" "+to_string(a+1)+"\n";
 									temp1.north[a].erase(temp1.north[a].begin()+b);
 									temp1.south[i].erase(temp1.south[i].begin()+j);
 									q.push(temp1);
@@ -211,6 +221,7 @@ void cashing::search(){
 									temp1.p=1;
 									temp1.t=temp.t+1;
 									temp1.r=temp.r-(north[i][j].second==1)-(south[i][k].second==1);
+									temp1.play=temp.play+"North plays "+to_string(north[i][j].first)+" "+to_string(i+1)+"\n South plays "+to_string(south[i][k].first)+" "+to_string(i+1)+"\n";
 									temp1.south[i].erase(temp1.south[i].begin()+k);
 									temp1.north[i].erase(temp1.north[i].begin()+j);
 									q.push(temp1);
@@ -225,6 +236,7 @@ void cashing::search(){
 								temp1.p=temp.north[i][j].first>south[i][k].first;
 								temp1.t=temp.t+1;
 								temp1.r=temp.r-(north[i][j].second==1)-(south[i][k].second==1);
+								temp1.play=temp.play+"North plays "+to_string(north[i][j].first)+" "+to_string(i+1)+"\n South plays "+to_string(south[i][k].first)+" "+to_string(i+1)+"\n";
 								temp1.south[i].erase(temp1.south[i].begin()+k);
 								temp1.north[i].erase(temp1.north[i].begin()+j);
 								q.push(temp1);
@@ -237,6 +249,7 @@ void cashing::search(){
 									temp1.p=0;
 									temp1.t=temp.t+1;
 									temp1.r=temp.r-(north[i][j].second==1)-(south[a][b].second==1);
+									temp1.play=temp.play+"North plays "+to_string(north[i][j].first)+" "+to_string(i+1)+"\n South plays "+to_string(south[a][b].first)+" "+to_string(a+1)+"\n";
 									temp1.south[a].erase(temp1.south[a].begin()+b);
 									temp1.north[i].erase(temp1.north[i].begin()+j);
 									q.push(temp1);
@@ -249,6 +262,7 @@ void cashing::search(){
 		}
 	}
 	cout<<"max top tricks: "<<ma<<endl;
+	cout<<line_of_play;
 }
 
 int main(){
