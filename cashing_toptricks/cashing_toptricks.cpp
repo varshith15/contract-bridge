@@ -158,7 +158,7 @@ void cashing::search(){
 			line_of_play=temp.play;
 		}
 		if(temp.r==0){
-			cout<<temp.t<<endl;
+			// cout<<temp.t<<endl;
 			continue;
 		}
 		if(temp.p==1){
@@ -314,6 +314,7 @@ void cashing::optsearch(){
 						if(temp.south[i][0].second==1){
 							nd temp1 = temp;
 							temp1.p=1;
+							temp1.t=temp.t+1;
 							temp1.r=temp.r-(temp.south[i][0].second==1)-(temp.north[j][0].second==1);
 							temp1.play = temp.play+"South plays "+to_string(temp.south[i][0].first)+" "+to_string(i+1)+"\nNorth plays "+to_string(temp.north[j][0].first)+" "+to_string(j+1)+"\n";
 							temp1.south[i].erase(temp1.south[i].begin());
@@ -325,6 +326,7 @@ void cashing::optsearch(){
 							int la=temp.north[j].size();
 							temp1=temp;
 							temp1.p=1;
+							temp1.t=temp.t+1;
 							temp1.r=temp.r-(temp.south[i][0].second==1)-(temp.north[j][la-1].second==1);
 							temp1.play = temp.play+"South plays "+to_string(temp.south[i][0].first)+" "+to_string(i+1)+"\nNorth plays "+to_string(temp.north[j][la-1].first)+" "+to_string(j+1)+"\n";
 							temp1.south[i].erase(temp1.south[i].begin());
@@ -343,6 +345,7 @@ void cashing::optsearch(){
 						if(temp.south[i][ls-1].second==1){
 							nd temp1 = temp;
 							temp1.p=1;
+							temp1.t=temp.t+1;
 							temp1.r=temp.r-(temp.south[i][ls-1].second==1)-(temp.north[j][0].second==1);
 							temp1.play = temp.play+"South plays "+to_string(temp.south[i][ls-1].first)+" "+to_string(i+1)+"\nNorth plays "+to_string(temp.north[j][0].first)+" "+to_string(j+1)+"\n";
 							temp1.south[i].erase(temp1.south[i].begin()+ls-1);
@@ -354,6 +357,7 @@ void cashing::optsearch(){
 							int la=temp.north[j].size();
 							temp1=temp;
 							temp1.p=1;
+							temp1.t=temp.t+1;
 							temp1.r=temp.r-(temp.south[i][ls-1].second==1)-(temp.north[j][la-1].second==1);
 							temp1.play = temp.play+"South plays "+to_string(temp.south[i][ls-1].first)+" "+to_string(i+1)+"\nNorth plays "+to_string(temp.north[j][la-1].first)+" "+to_string(j+1)+"\n";
 							temp1.south[i].erase(temp1.south[i].begin()+ls-1);
@@ -366,6 +370,7 @@ void cashing::optsearch(){
 					if(temp.south[i][0].second==1 || temp.north[i][0].second==1){
 						nd temp1 = temp;
 						temp1.p = temp.south[i][0].first>temp.north[i][0].first;
+						temp1.t=temp.t+1;
 						temp1.r = temp.r-(temp.south[i][0].second==1)-(temp.north[i][0].second==1);
 						temp1.play = temp.play+"South plays "+to_string(temp.south[i][0].first)+" "+to_string(i+1)+"\nNorth plays "+to_string(temp.north[i][0].first)+" "+to_string(i+1)+"\n";
 						temp1.south[i].erase(temp1.south[i].begin());
@@ -375,6 +380,7 @@ void cashing::optsearch(){
 					if(temp.south[i].size()>1 && (temp.south[i][temp.south[i].size()-1].second==1 || temp.north[i][0].second==1)){
 						nd temp1 = temp;
 						temp1.p = temp.south[i][temp.south[i].size()-1].first>temp.north[i][0].first;
+						temp1.t=temp.t+1;
 						temp1.r = temp.r-(temp.south[i][temp.south[i].size()-1].second==1)-(temp.north[i][0].second==1);
 						temp1.play = temp.play+"South plays "+to_string(temp.south[i][temp.south[i].size()-1].first)+" "+to_string(i+1)+"\nNorth plays "+to_string(temp.north[i][0].first)+" "+to_string(i+1)+"\n";
 						temp1.south[i].erase(temp1.south[i].begin()+temp.south[i].size()-1);
@@ -384,6 +390,7 @@ void cashing::optsearch(){
 					if(temp.north[i].size()>1 && (temp.south[i][0].second==1 || temp.north[i][temp.north[i].size()-1].second==1)){
 						nd temp1 = temp;
 						temp1.p = temp.south[i][0].first>temp.north[i][temp.north[i].size()-1].first;
+						temp1.t=temp.t+1;
 						temp1.r = temp.r-(temp.south[i][0].second==1)-(temp.north[i][temp.north[i].size()-1].second==1);
 						temp1.play = temp.play+"South plays "+to_string(temp.south[i][0].first)+" "+to_string(i+1)+"\nNorth plays "+to_string(temp.north[i][temp.north[i].size()-1].first)+" "+to_string(i+1)+"\n";
 						temp1.south[i].erase(temp1.south[i].begin());
@@ -393,6 +400,7 @@ void cashing::optsearch(){
 					if(temp.south[i].size()>1 && temp.north[i].size()>1 && (temp.south[i][temp.south[i].size()-1].second==1 || temp.north[i][temp.north[i].size()-1].second==1)){
 						nd temp1 = temp;
 						temp1.p = temp.south[i][temp.south[i].size()-1].first>temp.north[i][temp.north[i].size()-1].first;
+						temp1.t=temp.t+1;
 						temp1.r = temp.r-(temp.south[i][temp.south[i].size()-1].second==1)-(temp.north[i][temp.north[i].size()-1].second==1);
 						temp1.play = temp.play+"South plays "+to_string(temp.south[i][temp.south[i].size()-1].first)+" "+to_string(i+1)+"\nNorth plays "+to_string(temp.north[i][temp.north[i].size()-1].first)+" "+to_string(i+1)+"\n";
 						temp1.south[i].erase(temp1.south[i].begin()+temp.south[i].size()-1);
@@ -402,7 +410,118 @@ void cashing::optsearch(){
 				}
 			}
 		}
+		else{
+			for(int i=0;i<4;i++){
+				if(temp.north[i].size()==0){
+					continue;
+				}
+				if(temp.south[i].size()==0){
+					for(int j=0;j<4;j++){
+						if(temp.south[j].size()==0){
+							continue;
+						}
+						if(temp.north[i][0].second==1){
+							nd temp1 = temp;
+							temp1.p=0;
+							temp1.r=temp.r-(temp.north[i][0].second==1)-(temp.south[j][0].second==1);
+							temp1.t=temp.t+1;
+							temp1.play = temp.play+"North plays "+to_string(temp.north[i][0].first)+" "+to_string(i+1)+"\nSouth plays "+to_string(temp.south[j][0].first)+" "+to_string(j+1)+"\n";
+							temp1.north[i].erase(temp1.north[i].begin());
+							temp1.south[j].erase(temp1.south[j].begin());
+							q.push(temp1);
+							if(temp.south[j].size()==1){
+								continue;
+							}
+							int la=temp.south[j].size();
+							temp1=temp;
+							temp1.p=0;
+							temp1.t=temp.t+1;
+							temp1.r=temp.r-(temp.north[i][0].second==1)-(temp.south[j][la-1].second==1);
+							temp1.play = temp.play+"North plays "+to_string(temp.north[i][0].first)+" "+to_string(i+1)+"\nSouth plays "+to_string(temp.south[j][la-1].first)+" "+to_string(j+1)+"\n";
+							temp1.north[i].erase(temp1.north[i].begin());
+							temp1.south[j].erase(temp1.south[j].begin()+la-1);
+							q.push(temp1);
+						}
+					}
+					if(temp.north[i].size()==1){
+						continue;
+					}
+					for(int j=0;j<4;j++){
+						int ls=temp.north[i].size();
+						if(temp.south[j].size()==0){
+							continue;
+						}
+						if(temp.north[i][ls-1].second==1){
+							nd temp1 = temp;
+							temp1.p=0;
+							temp1.t=temp.t+1;
+							temp1.r=temp.r-(temp.north[i][ls-1].second==1)-(temp.south[j][0].second==1);
+							temp1.play = temp.play+"North plays "+to_string(temp.north[i][ls-1].first)+" "+to_string(i+1)+"\nSouth plays "+to_string(temp.south[j][0].first)+" "+to_string(j+1)+"\n";
+							temp1.north[i].erase(temp1.north[i].begin()+ls-1);
+							temp1.south[j].erase(temp1.south[j].begin());
+							q.push(temp1);
+							if(temp.south[j].size()==1){
+								continue;
+							}
+							int la=temp.south[j].size();
+							temp1=temp;
+							temp1.p=0;
+							temp1.t=temp.t+1;
+							temp1.r=temp.r-(temp.north[i][ls-1].second==1)-(temp.south[j][la-1].second==1);
+							temp1.play = temp.play+"North plays "+to_string(temp.north[i][ls-1].first)+" "+to_string(i+1)+"\nSouth plays "+to_string(temp.south[j][la-1].first)+" "+to_string(j+1)+"\n";
+							temp1.north[i].erase(temp1.north[i].begin()+ls-1);
+							temp1.south[j].erase(temp1.south[j].begin()+la-1);
+							q.push(temp1);
+						}
+					}
+				}
+				else{
+					if(temp.north[i][0].second==1 || temp.south[i][0].second==1){
+						nd temp1 = temp;
+						temp1.p = temp.north[i][0].first<temp.south[i][0].first;
+						temp1.t=temp.t+1;
+						temp1.r = temp.r-(temp.north[i][0].second==1)-(temp.south[i][0].second==1);
+						temp1.play = temp.play+"North plays "+to_string(temp.north[i][0].first)+" "+to_string(i+1)+"\nSouth plays "+to_string(temp.south[i][0].first)+" "+to_string(i+1)+"\n";
+						temp1.north[i].erase(temp1.north[i].begin());
+						temp1.south[i].erase(temp1.south[i].begin());
+						q.push(temp1);
+					}
+					if(temp.north[i].size()>1 && (temp.north[i][temp.north[i].size()-1].second==1 || temp.south[i][0].second==1)){
+						nd temp1 = temp;
+						temp1.p = temp.north[i][temp.north[i].size()-1].first<temp.south[i][0].first;
+						temp1.t=temp.t+1;
+						temp1.r = temp.r-(temp.north[i][temp.north[i].size()-1].second==1)-(temp.south[i][0].second==1);
+						temp1.play = temp.play+"North plays "+to_string(temp.north[i][temp.north[i].size()-1].first)+" "+to_string(i+1)+"\nSouth plays "+to_string(temp.south[i][0].first)+" "+to_string(i+1)+"\n";
+						temp1.north[i].erase(temp1.north[i].begin()+temp.north[i].size()-1);
+						temp1.south[i].erase(temp1.south[i].begin());
+						q.push(temp1);
+					}
+					if(temp.south[i].size()>1 && (temp.north[i][0].second==1 || temp.south[i][temp.south[i].size()-1].second==1)){
+						nd temp1 = temp;
+						temp1.p = temp.north[i][0].first<temp.south[i][temp.south[i].size()-1].first;
+						temp1.t=temp.t+1;
+						temp1.r = temp.r-(temp.north[i][0].second==1)-(temp.south[i][temp.south[i].size()-1].second==1);
+						temp1.play = temp.play+"North plays "+to_string(temp.north[i][0].first)+" "+to_string(i+1)+"\nSouth plays "+to_string(temp.south[i][temp.south[i].size()-1].first)+" "+to_string(i+1)+"\n";
+						temp1.north[i].erase(temp1.north[i].begin());
+						temp1.south[i].erase(temp1.south[i].begin()+temp.south[i].size()-1);
+						q.push(temp1);
+					}
+					if(temp.north[i].size()>1 && temp.south[i].size()>1 && (temp.north[i][temp.north[i].size()-1].second==1 || temp.south[i][temp.south[i].size()-1].second==1)){
+						nd temp1 = temp;
+						temp1.p = temp.north[i][temp.north[i].size()-1].first<temp.south[i][temp.south[i].size()-1].first;
+						temp1.t=temp.t+1;
+						temp1.r = temp.r-(temp.north[i][temp.north[i].size()-1].second==1)-(temp.south[i][temp.south[i].size()-1].second==1);
+						temp1.play = temp.play+"North plays "+to_string(temp.north[i][temp.north[i].size()-1].first)+" "+to_string(i+1)+"\nSouth plays "+to_string(temp.south[i][temp.south[i].size()-1].first)+" "+to_string(i+1)+"\n";
+						temp1.north[i].erase(temp1.north[i].begin()+temp.north[i].size()-1);
+						temp1.south[i].erase(temp1.south[i].begin()+temp.south[i].size()-1);
+						q.push(temp1);
+					}
+				}
+			}
+		}
 	}
+	cout<<"max top tricks: "<<ma<<endl;
+	cout<<line_of_play;
 }
 
 
@@ -410,6 +529,7 @@ int main(){
 	cashing c;
 	c.input();
 	c.rank();
-	c.search();
+	// c.search();
+	c.optsearch();
 	return 0;
 }
