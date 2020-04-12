@@ -283,10 +283,10 @@ int main(){
 		cout<<tricks<<" tricks done!"<<endl;
 		cout<<endl;
 		cout<<endl;
-		int ma=played[first].second;
+		int ma=played[0].second;
 		int ind=first;
 		for(int i=1;i<4;i++){
-			if(played[first].first==played[i].first && ma<played[i].second){
+			if(played[0].first==played[i].first && ma<played[i].second){
 				ma=played[i].second;
 				ind=(i+first)%4;
 			}
