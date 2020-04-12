@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 int main()
 {
   dealPBN dlPBN;
@@ -50,7 +49,7 @@ int main()
   // cout<<pbn<<endl;
   strcpy(dlPBN.remainCards,pbn.c_str());
   target=-1;
-  solutions=1;
+  solutions=3;
   mode=1;
   res = SolveBoardPBN(dlPBN,target,solutions,mode,&fut,0);
 

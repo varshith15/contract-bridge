@@ -16,6 +16,9 @@
 #include <string.h>
 #include "../include/dll.h"
 #include "hands.h"
+#include <bits/stdc++.h>
+
+using namespace std;
 
 
 int main()
@@ -47,6 +50,7 @@ int main()
 
     strcpy(bo.deals[handno].remainCards, PBN[handno]);
 
+    cout<<PBN[handno]<<endl;
     bo.target [handno] = -1;
     bo.solutions[handno] = 3;
     bo.mode [handno] = 0;

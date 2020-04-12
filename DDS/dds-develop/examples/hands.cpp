@@ -299,7 +299,6 @@ void PrintFut(char title[], futureTricks * fut)
            fut->score[i]);
   }
   fclose(fptr);
-  printf("\n");
 }
 
 
