@@ -46,6 +46,20 @@ he[0]='N';
 he[1]='E';
 he[2]='S';
 he[3]='W';
+
+	cout<<"Suit Encoding: "<<endl;
+	cout<<"SPADES   ---------  0"<<endl;
+	cout<<"HEARTS   ---------  1"<<endl;
+	cout<<"DIAMONDS ---------  2"<<endl;
+	cout<<"HEARTS   ---------  3"<<endl;
+	cout<<"NO TRUMP ---------  4"<<endl;
+	cout<<endl;
+	cout<<"Hand Encoding: "<<endl;
+	cout<<"NORTH  --------  0"<<endl;
+	cout<<"EAST   --------  1"<<endl;
+	cout<<"SOUTH  --------  2"<<endl;
+	cout<<"WEST   --------  3"<<endl;
+	cout<<endl;
 }
 
 void samples(vector<vector<string> > hands){
@@ -208,16 +222,16 @@ int main(){
 	
 	int trump;
 	int first;
-	cout<<"Trump:";
+	cout<<"Trump Suit:";
 	cin>>trump;
-	cout<<"First:";
+	cout<<"First Hand:";
 	cin>>first;
 
 	string north;
-	cout<<"North:";
+	cout<<"North Hand:";
 	cin>>north;
 	string south;
-	cout<<"South:";
+	cout<<"South Hand:";
 	cin>>south;
 
 	int won=0;
@@ -268,11 +282,11 @@ int main(){
 			}
 			else{
 				cout<<he[ch]<<" turn to play."<<endl;
-				cout<<"Suit:";
+				cout<<"Suit in number:";
 				int suit;
 				cin>>suit;
 				played[c].first=suit;
-				cout<<"Card:";
+				cout<<"Card in char:";
 				char card;
 				cin>>card;
 				played[c].second=ce[card];
@@ -296,5 +310,6 @@ int main(){
 		}
 		first=ind;
 	}
+	cout<<"Tricks Won by North-South: ";
 	cout<<won<<endl;
 }

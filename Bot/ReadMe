@@ -1,5 +1,0 @@
-install hand generator using  https://github.com/anntzer/redeal
-
-make sure you have python>=3.6
-use the commad below to install:
-python3 -mpip install --user --upgrade git+https://github.com/anntzer/redeal
