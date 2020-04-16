@@ -17,10 +17,10 @@ This code uses Bo haguland's DDS and Thomas Andrews Deal for Monte Carlo Simulat
 3. Run `./bridgebot` to start playing the game.
 
 **Example :**
-Trump Suit:4
-First Hand:0
-North Hand:AQ96.AQ7.A8.T753
-South Hand:53.T.QJ76542.K42
+- Trump Suit: 4
+- First Hand: 0
+- North Hand: AQ96.AQ7.A8.T753
+- South Hand: 53.T.QJ76542.K42
 
 **Deal Generator :**
 https://github.com/anntzer/redeal
