@@ -109,6 +109,7 @@ string pbn_util(string s,vector<string> played){
 }
 
 vector<string> pbn(vector<vector<string> > cards_played){
+	set<string> check;
 	ifstream inf;
 	inf.open("samples.txt");
 	if(!inf){
@@ -130,6 +131,9 @@ vector<string> pbn(vector<vector<string> > cards_played){
 		inf>>s;
 		temp=temp+" "+pbn_util(s,cards_played[3]);
 		if(temp=="" || temp[0]==' '){
+			continue;
+		}
+		if(check.find(temp)!=check.end()){
 			continue;
 		}
 		pbn.push_back(temp);
@@ -188,8 +192,13 @@ pair<int,char> solve(int trump,int first,vector<string> pbn,vector<pair<int,int>
 	for(auto i=best.begin();i!=best.end();i++){
 		pair<int,char> ll=i->first;
 		cout<<ll.first<<" "<<ll.second<<" "<<i->second<<endl;
+	}
+	for(auto i=best.begin();i!=best.end();i++){
+		pair<int,char> ll=i->first;
+		// cout<<ll.first<<" "<<ll.second<<" "<<i->second<<endl;
 		if(i->second==ma){
 			ans=i->first;
+			break;
 		}
 	}
 	// cout<<"done pplplp"<<endl;
@@ -294,9 +303,10 @@ int main(){
 				cards_played[ch][suit]=cards_played[ch][suit]+card;
 			}
 		}
+		cout<<endl;
 		cout<<tricks<<" tricks done!"<<endl;
 		cout<<endl;
-		cout<<endl;
+		// cout<<endl;
 		int ma=played[0].second;
 		int ind=first;
 		for(int i=1;i<4;i++){
