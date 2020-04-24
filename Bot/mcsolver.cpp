@@ -51,7 +51,7 @@ he[3]='W';
 	cout<<"SPADES   ---------  0"<<endl;
 	cout<<"HEARTS   ---------  1"<<endl;
 	cout<<"DIAMONDS ---------  2"<<endl;
-	cout<<"HEARTS   ---------  3"<<endl;
+	cout<<"CLUBS    ---------  3"<<endl;
 	cout<<"NO TRUMP ---------  4"<<endl;
 	cout<<endl;
 	cout<<"Hand Encoding: "<<endl;
