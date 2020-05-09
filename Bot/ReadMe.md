@@ -18,9 +18,10 @@ This code uses Bo haguland's DDS and Thomas Andrews Deal for Monte Carlo Simulat
 
 **Example :**
 - Trump Suit: 4
-- First Hand: 0
-- North Hand: AQ96.AQ7.A8.T753
-- South Hand: 53.T.QJ76542.K42
+- First Hand: 1
+- Declarer:   2
+- Deal in PBN format: .63.AKQ987.A9732 A8654.KQ5.T.QJT6 J973.J98742.3.K4 KQT2.AT.J6542.85
+
 
 **Deal Generator :**
 https://github.com/anntzer/redeal
