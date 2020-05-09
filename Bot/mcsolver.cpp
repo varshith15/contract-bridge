@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
 #include <boost/algorithm/string.hpp>
+#include "print.h"
 
 using namespace std;
+
 
 map<char,int> se;
 map<char,int> ce;
@@ -161,6 +163,12 @@ pair<int,char> solve(int trump,int first,vector<string> pbn,vector<pair<int,int>
 			ouf<<played[j].second<<endl;
 		}
 		ouf<<pbn[i]<<endl;
+		// cout<<pbn[i]<<endl;
+		// char title[100];
+		// char phand[200];
+		// strcpy(title,"ll");
+		// strcpy(phand,("N:"+pbn[i]).c_str());
+		// PrintPBNHand(title,phand);
 		char cmd[100];
 		strcpy(cmd,"./SolveBoardPBN");
 		system(cmd);
@@ -226,38 +234,95 @@ pair<int,char> solve(int trump,int first,vector<string> pbn,vector<pair<int,int>
 	// vector<string> pbn=solve(cards_played);
 //}
 
+vector<string> remainingcards(vector<vector<string> > diff , vector<vector<string> > cards_played){
+	vector<string> remhands(4,"");
+	for(int i=0;i<4;i++){
+		for(int j=0;j<4;j++){
+			string h=diff[i][j];
+			string c=cards_played[i][j];
+			string temp="";
+			for(int a=0;a<h.size();a++){
+				bool flag=1;
+				for(int b=0;b<c.size();b++){
+					if(h[a]==c[b]){
+						flag=0;
+						break;
+					}
+				}
+				if(flag){
+					temp=temp+h[a];
+				}
+			}
+			if(j!=3){
+				remhands[i]=remhands[i]+temp+".";
+			}
+			else{
+				remhands[i]=remhands[i]+temp;
+			}
+		}
+	}
+	return remhands;
+}
+
 int main(){
 	encoding();
 	
 	int trump;
 	int first;
+	int dec;
 	cout<<"Trump Suit:";
 	cin>>trump;
 	cout<<"First Hand:";
 	cin>>first;
-
-	string north;
-	cout<<"North Hand:";
-	cin>>north;
-	string south;
-	cout<<"South Hand:";
-	cin>>south;
-
+	cout<<"Declarer:";
+	cin>>dec;
+	cin.ignore();
+	cout<<"Deal in PBN format:";
+	string deal;
+	getline(cin,deal);
+	// string north;
+	// cout<<"North Hand:";
+	// cin>>north;
+	// string south;
+	// cout<<"South Hand:";
+	// cin>>south;
+	vector<string> ha;
+	boost::split(ha,deal,boost::is_any_of(" "));
+	string north = ha[(0+dec)%4];
+	string east = ha[(1+dec)%4];
+	string south = ha[(2+dec)%4];
+	string west = ha[(3+dec)%4];
+	first = (first-dec+4)%4;
+	ha[0]=north;
+	ha[1]=east;
+	ha[2]=south;
+	ha[3]=west;
 	int won=0;
 
 	vector<vector<string> > hands(4,vector<string>(4,""));
+	vector<vector<string> > diff(4,vector<string>(4,""));
 	vector<vector<string> > cards_played(4,vector<string>(4,""));
 
 	vector<string> su; 
     boost::split(su, north, boost::is_any_of("."));
     for(int i=0;i<4;i++){
-    	hands[0][i]=su[i];
+    	diff[0][i]=su[i];
+    }
+    boost::split(su, east, boost::is_any_of("."));
+    for(int i=0;i<4;i++){
+    	diff[1][i]=su[i];
     }
     boost::split(su, south, boost::is_any_of("."));
     for(int i=0;i<4;i++){
-    	hands[2][i]=su[i];
+    	diff[2][i]=su[i];
+    }
+    boost::split(su, west, boost::is_any_of("."));
+    for(int i=0;i<4;i++){
+    	diff[3][i]=su[i];
     }
 
+    hands[0]=diff[0];
+    hands[2]=diff[2];
     // for(int i=0;i<4;i++){
     // 	for(int j=0;j<4;j++){
     // 		cout<<hands[i][j]<<" ";
@@ -273,7 +338,7 @@ int main(){
 			cout<<endl;
 			int ch=(first+c)%4;
 			if(ch%2==0){
-				cout<<he[ch]<<" turn to play."<<endl;
+				cout<<he[(ch+dec)%4]<<" turn to play."<<endl;
 				samples(hands);
 				vector<string> pb = pbn(cards_played);
 				// for(int i=0;i<pb.size();i++){
@@ -290,7 +355,28 @@ int main(){
 				cards_played[ch][ans.first]=cards_played[ch][ans.first]+ans.second;
 			}
 			else{
-				cout<<he[ch]<<" turn to play."<<endl;
+				cout<<he[(ch+dec)%4]<<" turn to play."<<endl;
+				vector<string> remhands = remainingcards(diff,cards_played);
+				string print;
+				if(ch==1){
+					vector<string> format(4,"...");
+					format[(ch+dec)%4]=remhands[1];
+					format[(dec+2)%4]=remhands[2];
+					print="N:"+format[0]+" "+format[1]+" "+format[2]+" "+format[3];
+				}
+				else if(ch==3){
+					vector<string> format(4,"...");
+					format[(ch+dec)%4]=remhands[3];
+					format[(dec+2)%4]=remhands[2];
+					print="N:"+format[0]+" "+format[1]+" "+format[2]+" "+format[3];
+				}
+				// cout<<print<<endl;
+				// print="N:A.2.3.4 ... ... ...";
+				char title[100];
+				char cprint[1000];
+				strcpy(title,"lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll");
+				strcpy(cprint,print.c_str());
+				PrintPBNHand(title,cprint);
 				cout<<"Suit in number:";
 				int suit;
 				cin>>suit;
