@@ -196,7 +196,8 @@ pair<int,char> solve(int trump,int first,vector<string> pbn,vector<pair<int,int>
 		}
 	}
 	cout<<ma<<endl;
-	pair<int,char> ans;
+	pair<int,char> tp={-1,'P'};
+	pair<int,char> ans={-1,'P'};
 	for(auto i=best.begin();i!=best.end();i++){
 		pair<int,char> ll=i->first;
 		cout<<ll.first<<" "<<ll.second<<" "<<i->second<<endl;
@@ -205,8 +206,12 @@ pair<int,char> solve(int trump,int first,vector<string> pbn,vector<pair<int,int>
 		pair<int,char> ll=i->first;
 		// cout<<ll.first<<" "<<ll.second<<" "<<i->second<<endl;
 		if(i->second==ma){
-			ans=i->first;
-			break;
+			if(ans==tp){
+				ans=i->first;
+			}
+			else if(ce[ans.second]>ce[(i->first).second]){
+				ans=i->first;
+			}
 		}
 	}
 	// cout<<"done pplplp"<<endl;
@@ -280,12 +285,6 @@ int main(){
 	cout<<"Deal in PBN format:";
 	string deal;
 	getline(cin,deal);
-	// string north;
-	// cout<<"North Hand:";
-	// cin>>north;
-	// string south;
-	// cout<<"South Hand:";
-	// cin>>south;
 	vector<string> ha;
 	boost::split(ha,deal,boost::is_any_of(" "));
 	string north = ha[(0+dec)%4];
@@ -329,16 +328,16 @@ int main(){
     // 	}
     // 	cout<<endl;
     // }
-	
 	int tricks=0;
 	while((tricks++)<13){
+		int tsuit=-1;
 		vector<pair<int,int> > played(4,{0,0});
 		for(int c=0;c<4;c++){
 			// cout<<endl;
 			cout<<"Press C to continue!"<<endl;
 			string cs;
 			while(cin>>cs){
-				cout << "\033[2J\033[1;1H";
+			cout << "\033[2J\033[1;1H";
 				break;
 			}
 			cout<<endl;
@@ -361,6 +360,9 @@ int main(){
 				pair<int,char> ans=solve(trump,first,pb,played);
 				// cout<<"solve done!"<<endl;
 				cout<<"Playing: "<<ans.first<<" "<<ans.second<<endl;
+				if(tsuit==-1){
+					tsuit=ans.first;
+				}
 				played[c].first=ans.first;
 				played[c].second=ce[ans.second];
 				// hands[ch][ans.first]+=hands[ch][ans.first]+ans.second;
@@ -389,13 +391,48 @@ int main(){
 				strcpy(title,"lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll");
 				strcpy(cprint,print.c_str());
 				PrintPBNHand(title,cprint);
+				vector<string> remcards;
+				boost::split(remcards, remhands[ch], boost::is_any_of("."));
 				cout<<"Suit in number:";
 				int suit;
-				cin>>suit;
+				// cin>>suit;
+				while(cin>>suit){
+					if(tsuit==-1){
+						tsuit=suit;
+						break;
+					}
+					if(remcards[tsuit]==""){
+						break;
+					}
+					if(tsuit!=suit){
+						cout<<"Wrong Suit Played Try Again!"<<endl;
+						cout<<"Suit in number:";
+					}
+					else{
+						break;
+					}
+				}
 				played[c].first=suit;
 				cout<<"Card in char:";
 				char card;
-				cin>>card;
+				// cin>>card;
+				while(cin>>card){
+					bool flg=false;
+					for(int f=0;f<remcards[suit].size();f++){
+						if(remcards[suit][f]==card){
+							flg=true;
+							break;
+						}
+					}
+					if(!flg){
+						cout<<remcards[suit]<<endl;
+						cout<<"You don't hold that Card! Try Again!"<<endl;
+						cout<<"Card in char:";
+					}
+					else{
+						break;
+					}
+				}
 				played[c].second=ce[card];
 				hands[ch][suit]=hands[ch][suit]+card;
 				cards_played[ch][suit]=cards_played[ch][suit]+card;
