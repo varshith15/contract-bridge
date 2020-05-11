@@ -335,7 +335,19 @@ int main(){
 		vector<pair<int,int> > played(4,{0,0});
 		for(int c=0;c<4;c++){
 			// cout<<endl;
+			cout<<"Press C to continue!"<<endl;
+			string cs;
+			while(cin>>cs){
+				cout << "\033[2J\033[1;1H";
+				break;
+			}
 			cout<<endl;
+			if(c!=0){
+				cout<<"Cards Played Previously in the Trick: "<<endl;
+				for(int pl=0;pl<c;pl++){
+					cout<<played[pl].first<<" "<<ce1[played[pl].second]<<endl;
+				}
+			}
 			int ch=(first+c)%4;
 			if(ch%2==0){
 				cout<<he[(ch+dec)%4]<<" turn to play."<<endl;
@@ -391,7 +403,6 @@ int main(){
 		}
 		cout<<endl;
 		cout<<tricks<<" tricks done!"<<endl;
-		cout<<endl;
 		// cout<<endl;
 		int ma=played[0].second;
 		int ind=first;
@@ -405,6 +416,8 @@ int main(){
 			won++;
 		}
 		first=ind;
+		cout<<he[(ind+dec)%4]<<" won the trick!"<<endl;
+		cout<<endl;
 	}
 	cout<<"Tricks Won by North-South: ";
 	cout<<won<<endl;
