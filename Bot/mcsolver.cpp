@@ -9,8 +9,16 @@ map<char,int> se;
 map<char,int> ce;
 map<int,char> ce1;
 map<int,char> he;
+map<int,string> sye;
 
 void encoding(){
+
+sye[0]="\xE2\x99\xA0";
+sye[3]="\xE2\x99\xA3";
+sye[1]="\xE2\x99\xA5";
+sye[2]="\xE2\x99\xA6";
+
+
 ce1[2]='2';
 ce1[3]='3';
 ce1[4]='4';
@@ -50,11 +58,11 @@ he[2]='S';
 he[3]='W';
 
 	cout<<"Suit Encoding: "<<endl;
-	cout<<"SPADES   ---------  0"<<endl;
-	cout<<"HEARTS   ---------  1"<<endl;
-	cout<<"DIAMONDS ---------  2"<<endl;
-	cout<<"CLUBS    ---------  3"<<endl;
-	cout<<"NO TRUMP ---------  4"<<endl;
+	cout<<"SPADES   \xE2\x99\xA0  ---------  0"<<endl;
+	cout<<"HEARTS   \xE2\x99\xA5  ---------  1"<<endl;
+	cout<<"DIAMONDS \xE2\x99\xA6  ---------  2"<<endl;
+	cout<<"CLUBS    \xE2\x99\xA3  ---------  3"<<endl;
+	cout<<"NO TRUMP    ---------  4"<<endl;
 	cout<<endl;
 	cout<<"Hand Encoding: "<<endl;
 	cout<<"NORTH  --------  0"<<endl;
@@ -200,7 +208,7 @@ pair<int,char> solve(int trump,int first,vector<string> pbn,vector<pair<int,int>
 	pair<int,char> ans={-1,'P'};
 	for(auto i=best.begin();i!=best.end();i++){
 		pair<int,char> ll=i->first;
-		cout<<ll.first<<" "<<ll.second<<" "<<i->second<<endl;
+		cout<<sye[ll.first]<<" "<<ll.second<<" "<<i->second<<endl;
 	}
 	for(auto i=best.begin();i!=best.end();i++){
 		pair<int,char> ll=i->first;
@@ -341,10 +349,19 @@ int main(){
 				break;
 			}
 			cout<<endl;
+			
+			cout<<"Suit Encoding: "<<endl;
+			cout<<"SPADES   \xE2\x99\xA0  ---------  0"<<endl;
+			cout<<"HEARTS   \xE2\x99\xA5  ---------  1"<<endl;
+			cout<<"DIAMONDS \xE2\x99\xA6  ---------  2"<<endl;
+			cout<<"CLUBS    \xE2\x99\xA3  ---------  3"<<endl;
+			cout<<"NO TRUMP    ---------  4"<<endl;
+			cout<<endl;
+
 			if(c!=0){
 				cout<<"Cards Played Previously in the Trick: "<<endl;
 				for(int pl=0;pl<c;pl++){
-					cout<<played[pl].first<<" "<<ce1[played[pl].second]<<endl;
+					cout<<sye[played[pl].first]<<" "<<ce1[played[pl].second]<<endl;
 				}
 			}
 			int ch=(first+c)%4;
@@ -359,7 +376,7 @@ int main(){
 				// solve(trump,first,pb,played);	
 				pair<int,char> ans=solve(trump,first,pb,played);
 				// cout<<"solve done!"<<endl;
-				cout<<"Playing: "<<ans.first<<" "<<ans.second<<endl;
+				cout<<"Playing: "<<sye[ans.first]<<" "<<ans.second<<endl;
 				if(tsuit==-1){
 					tsuit=ans.first;
 				}
@@ -406,6 +423,7 @@ int main(){
 					}
 					if(tsuit!=suit){
 						cout<<"Wrong Suit Played Try Again!"<<endl;
+						cout<<"Playable Suit is: "<<tsuit<<endl;
 						cout<<"Suit in number:";
 					}
 					else{
@@ -415,7 +433,7 @@ int main(){
 				played[c].first=suit;
 				cout<<"Card in char:";
 				char card;
-				// cin>>card;
+				cin>>card;
 				while(cin>>card){
 					bool flg=false;
 					for(int f=0;f<remcards[suit].size();f++){
@@ -425,8 +443,8 @@ int main(){
 						}
 					}
 					if(!flg){
-						cout<<remcards[suit]<<endl;
 						cout<<"You don't hold that Card! Try Again!"<<endl;
+						cout<<"Playable Cards are: "<<remcards[suit]<<endl;
 						cout<<"Card in char:";
 					}
 					else{
@@ -442,9 +460,14 @@ int main(){
 		cout<<tricks<<" tricks done!"<<endl;
 		// cout<<endl;
 		int ma=played[0].second;
+		int tch=played[0].first;
 		int ind=first;
 		for(int i=1;i<4;i++){
-			if(played[0].first==played[i].first && ma<played[i].second){
+			if(played[i].first==trump && tch!=trump){
+				tch=trump;
+				ma=-1;
+			}
+			if(tch==played[i].first && ma<played[i].second){
 				ma=played[i].second;
 				ind=(i+first)%4;
 			}
