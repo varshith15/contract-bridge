@@ -9,10 +9,15 @@ map<int,string> sye;
 
 void encoding(){
 
-sye[0]="\xE2\x99\xA0";
-sye[3]="\xE2\x99\xA3";
-sye[1]="\xE2\x99\xA5";
-sye[2]="\xE2\x99\xA6";
+// sye[0]="\xE2\x99\xA0";
+// sye[3]="\xE2\x99\xA3";
+// sye[1]="\xE2\x99\xA5";
+// sye[2]="\xE2\x99\xA6";
+
+sye[0]="$\\spadesuit";
+sye[3]="$\\clubsuit";
+sye[1]="$\\varheartsuit";
+sye[2]="$\\vardiamondsuit";
 
 ce1[2]='2';
 ce1[3]='3';
@@ -209,8 +214,10 @@ void cashing::search(){
 	}
 	q.push(temp);
 	string line_of_play="";
+	long long int ch = 0;
 	while(!q.empty()){
 		// cout<<"ll"<<endl;
+		cout<<ch++<<endl;
 		temp=q.front();
 		q.pop();
 		// ma=max(ma,temp.t);

@@ -1,0 +1,5 @@
+	4 - No trump
+	3 - West is the first hand to play
+	2 - South is declarer
+	Deal: Q4.K54.A654.KJ54 A65.QJT.987.9876 J32.A32.K32.AQ32 KT987.9876.QJT.T
+	

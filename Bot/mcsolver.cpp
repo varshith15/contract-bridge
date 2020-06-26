@@ -414,6 +414,11 @@ int main(){
 				int suit;
 				// cin>>suit;
 				while(cin>>suit){
+					if(suit<0 || suit>3){
+						cout<<"Suit number not valid! Try Again"<<endl;
+						cout<<"Suit in number:";
+						continue;
+					}
 					if(tsuit==-1){
 						tsuit=suit;
 						break;
@@ -433,7 +438,7 @@ int main(){
 				played[c].first=suit;
 				cout<<"Card in char:";
 				char card;
-				cin>>card;
+				// cin>>card;
 				while(cin>>card){
 					bool flg=false;
 					for(int f=0;f<remcards[suit].size();f++){
