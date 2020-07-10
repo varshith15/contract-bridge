@@ -43,20 +43,25 @@ bool hpc_check(vector<vector<string> > cards,vector<int> hcp){
 }
 
 vector<vector<string> > generate(vector<vector<int> > grid, vector<vector<int> > len, vector<int> suitl, vector<int> handl, vector<vector<string> > cards,vector<string>left){
+    // cout<<"pp"<<endl;
     srand((unsigned) time(NULL));
+    // cout<<"pp1"<<endl;
+    // for(int i=0;i<4;i++){
+    // 	cout<<handl[i]<<" "<<suitl[i]<<endl;
+    // }
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
+            if(j==3){
+                grid[i][j]+=handl[i];
+                handl[i]-=handl[i];
+                suitl[j]-=handl[i];
+                continue;
+            }
             if(i==3){
                 // cout<<suitl[j]<<"pp"<<endl;
                 grid[i][j]+=suitl[j];
                 handl[i]-=suitl[j];
                 suitl[j]-=suitl[j];
-                continue;
-            }
-            if(j==3){
-                grid[i][j]+=handl[i];
-                handl[i]-=handl[i];
-                suitl[j]-=handl[i];
                 continue;
             }
             int low = 0;
@@ -71,8 +76,11 @@ vector<vector<string> > generate(vector<vector<int> > grid, vector<vector<int> >
             //     ch+=len[k][j];
             // }
             up = min(up,suitl[j]);
+            // cout<<handl[i]<<" "<<suitl[j]<<endl;
             int wt=up-low+1;
+            // cout<<"pp2"<<endl;
             int val = rand()%wt;
+            // cout<<"pp3"<<endl;
             grid[i][j]+=val;
             handl[i]-=val;
             suitl[j]-=val;
@@ -88,13 +96,13 @@ vector<vector<string> > generate(vector<vector<int> > grid, vector<vector<int> >
         }
     }
 
-    // for(int i=0;i<4;i++){
-    //     for(int j=0;j<4;j++){
-    //         cout<<grid[i][j]<<" "<<len[i][j]<<" ";
-    //     }
-    //     cout<<endl;
-    // }
-    // cout<<add<<endl;
+    for(int i=0;i<4;i++){
+        for(int j=0;j<4;j++){
+            cout<<grid[i][j]<<" "<<len[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<add<<endl;
     if(add){
         for(int j=0;j<4;j++){
             string temp = left[j];
@@ -167,6 +175,9 @@ int main(){
             }
             if(len[i][j]>=cards[i][j].size()){
                 len[i][j]=len[i][j]-(cards[i][j].size());
+            }
+            else{
+            	len[i][j]=0;
             }
         }
     }

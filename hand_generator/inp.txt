@@ -1,4 +1,4 @@
-A A A A 
+AT92 A2 A6 A5 
 K K K K 
 Q Q Q Q 
 J J J J
