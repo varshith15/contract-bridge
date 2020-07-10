@@ -1,6 +1,6 @@
 ## Contract Bridge Playing Bot
 
-This code uses Bo haguland's DDS and Thomas Andrews Deal for Monte Carlo Simulation of Declarers play.
+This code uses modified version of Bo haguland's DDS and Thomas Andrews Deal for Monte Carlo Simulation of Declarers play.
 
 **Prerequisites :**
 - Deal Generator used in the project needs python>=3.6
