@@ -1,5 +1,8 @@
 #include <bits/stdc++.h>
-using namespace std;
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_int_distribution.hpp>
+
+using namespace std;	
 
 void encoding(map<char,int> &rank){
     rank['A']=0;
@@ -44,7 +47,7 @@ bool hpc_check(vector<vector<string> > cards,vector<int> hcp){
 
 vector<vector<string> > generate(vector<vector<int> > grid, vector<vector<int> > len, vector<int> suitl, vector<int> handl, vector<vector<string> > cards,vector<string>left){
     // cout<<"pp"<<endl;
-    srand((unsigned) time(NULL));
+    // srand(time(0));
     // cout<<"pp1"<<endl;
     // for(int i=0;i<4;i++){
     // 	cout<<handl[i]<<" "<<suitl[i]<<endl;
@@ -79,8 +82,17 @@ vector<vector<string> > generate(vector<vector<int> > grid, vector<vector<int> >
             // cout<<handl[i]<<" "<<suitl[j]<<endl;
             int wt=up-low+1;
             // cout<<"pp2"<<endl;
-            int val = rand()%wt;
+            // int val = rand()%wt;
             // cout<<"pp3"<<endl;
+          //   vector<int> ran;
+         	// for(int i=0;i<wt;i++){
+         	// 	ran.push_back(i);
+         	// }
+         	// random_shuffle(ran.begin(),ran.end());
+         	random_device seeder;
+         	mt19937 rng(seeder());
+         	uniform_int_distribution<>gen(0,wt-1);
+      		int val =gen(rng);
             grid[i][j]+=val;
             handl[i]-=val;
             suitl[j]-=val;
@@ -106,7 +118,8 @@ vector<vector<string> > generate(vector<vector<int> > grid, vector<vector<int> >
     if(add){
         for(int j=0;j<4;j++){
             string temp = left[j];
-            shuffle(temp.begin(),temp.end(),default_random_engine((unsigned) time(NULL)));
+            unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+            shuffle(temp.begin(),temp.end(),std::default_random_engine(seed));
             // cout<<temp<<endl;
             int l=0;
             for(int i=0;i<4;i++){
@@ -201,5 +214,6 @@ int main(){
     //     }
     //     cout<<endl;
     // }
-    generate(grid,len,suitl,handl,cards,left);
+    // for(int i=0;i<10;i++)
+    	generate(grid,len,suitl,handl,cards,left);
 }
